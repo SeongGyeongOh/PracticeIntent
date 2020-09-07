@@ -106,8 +106,9 @@ public class Lab14_2Activity extends AppCompatActivity implements View.OnClickLi
                         filePath.createNewFile();
                     }
 
-                    Uri photoURI=FileProvider.getUriForFile(Lab14_2Activity.this, BuildConfig.APPLICATION_ID+".provider", filePath);
+                    Uri photoURI=FileProvider.getUriForFile(Lab14_2Activity.this, BuildConfig.APPLICATION_ID+".fileprovider", filePath);
                     Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                     startActivityForResult(intent, 40);
 
                 } catch (Exception e) {
@@ -137,7 +138,7 @@ public class Lab14_2Activity extends AppCompatActivity implements View.OnClickLi
             }
         }else if(v==resultImageView){
             Intent intent=new Intent(Intent.ACTION_VIEW);
-            Uri photoUri=FileProvider.getUriForFile(Lab14_2Activity.this, BuildConfig.APPLICATION_ID+".provider", filePath);
+            Uri photoUri=FileProvider.getUriForFile(Lab14_2Activity.this, BuildConfig.APPLICATION_ID+".fileprovider", filePath);
             intent.setDataAndType(photoUri, "image/*");
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(intent);
